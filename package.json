@@ -1,0 +1,36 @@
+{
+  "name": "tempo-cross-border-client",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "cd client && next dev",
+    "build": "cd client && next build",
+    "start": "cd client && next start",
+    "orchestrate": "node contracts/scripts/orchestrate.mjs",
+    "pool": "node contracts/scripts/checkPools.mjs"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.90.21",
+    "@wagmi/core": "^3.2.0",
+    "@base-org/account": "^2.4.0",
+    "@coinbase/wallet-sdk": "^4.3.6",
+    "@gemini-wallet/core": "^0.3.2",
+    "@metamask/sdk": "^0.33.1",
+    "@safe-global/safe-apps-provider": "^0.18.6",
+    "@safe-global/safe-apps-sdk": "^9.1.0",
+    "@walletconnect/ethereum-provider": "^2.21.1",
+    "ethers": "^6.13.4",
+    "lucide-react": "^0.564.0",
+    "next": "^14.2.5",
+    "porto": "^0.2.35",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "viem": "^2.43.0",
+    "wagmi": "^3.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.24",
+    "postcss": "^8.5.6",
+    "tailwindcss": "3"
+  }
+}

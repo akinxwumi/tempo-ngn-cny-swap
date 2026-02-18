@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply font-mono text-[13px] text-ink-1 bg-surface-root min-h-screen antialiased;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+        font-family: inherit;
+    }
+}
+
+@layer components {
+    .spinner {
+        @apply inline-block w-3.5 h-3.5 border-2 border-white/20 border-t-white rounded-full animate-spin mr-2 align-middle;
+    }
+}
+
+@layer utilities {
+
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+}
