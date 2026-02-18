@@ -64,16 +64,8 @@ npm run orchestrate
 ```
 *This script will update `contracts/address.json` with the deployed token addresses.*
 
-### 4. Client Configuration
 
-Update `client/.env.local` with the token addresses generated in `contracts/address.json`:
-
-```ini
-NEXT_PUBLIC_NGNT_TOKEN_ADDRESS=0x...
-NEXT_PUBLIC_CNYT_TOKEN_ADDRESS=0x...
-```
-
-### 5. Run the Client
+### 4. Run the Client
 
 ```bash
 npm run dev
@@ -81,8 +73,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the swap interface.
 
-## Features
+## Client Notes
 
 - **Auto-Faucet**: When a wallet connects, the client automatically triggers a server-side faucet to fund the user with `NGNT` and `CNYT`.
 - **Bidirectional Swaps**: NGN → CNY and CNY → NGN.
-- **Transparent Pricing**: Real-time display of exchange rates and fees.
