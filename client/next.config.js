@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  distDir: '../.next',
   reactStrictMode: true,
   webpack: (config, { isServer }) => {
     // Ignore optional dependencies that are not needed for web
