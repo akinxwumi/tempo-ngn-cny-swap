@@ -1,6 +1,6 @@
 # NGN-CNY Payment PoC
 
-We are experimenting with Tempo to see if it can materially improve the experience of NGN-CNY B2B payments. The goal is to test if Tempo's native stablecoin rails can offer a viable alternative to the high costs, delays, and friction of legacy SWIFT and traditional banking.
+Experimenting with Tempo to see if it can materially improve the experience of NGN-CNY B2B payments. The goal is to test if Tempo's native stablecoin rails can offer a viable alternative to the high costs, delays, and friction of legacy SWIFT and traditional banking.
 
 ## Context
 
@@ -11,9 +11,9 @@ Trade between Nigeria and China exceeds $26B annually, but payments are still la
 
 ## The Experiment
 
-We built a client-side Proof of Concept (PoC) to test an alternative flow:
+Built a client-side Proof of Concept (PoC) to test an alternative flow:
 1.  **Direct Swaps**: Using Tempo's native AMM to swap NGN stablecoins for CNY stablecoins.
-2.  **Client-Side Orchestration**: The application handles all on-chain setup (minting tokens, seeding liquidity, funding wallets) automatically upon connection, removing the need for backend infrastructure.
+2.  **Client-Side Orchestration**: The application handles all on-chain setup (minting tokens, seeding liquidity, funding wallets) automatically upon connection.
 3.  **Concept Tokens**: On the Tempo Moderato Testnet, we use NGN and CNY concept tokens (configured as USD-denominated to work with the current DEX constraints) to simulate the payment rails.
 
 ## How to Run
@@ -36,8 +36,8 @@ We built a client-side Proof of Concept (PoC) to test an alternative flow:
 
 **Validated**:
 - **Speed**: Settlement consistently occurs in under 60 seconds (vs. >= 1 day).
-- **Cost**: On-chain fees are negligible (<0.5%) compared to banking rails.
-- **UX**: Client-side automation proves that complex crypto operations can be abstracted away from the user.
+- **Cost**: On-chain fees are negligible (<0.5%) compared to banking rails (5-7%).
+- **UX**: Test client shows that complex crypto operations can be abstracted away from the user.
 
 **Constraints & Risks**:
 - **USD Restriction**: Tempo's native DEX currently enforces USD-only pairs. Mainnet must support non-USD pairs for this to work without an intermediate USD hop.
