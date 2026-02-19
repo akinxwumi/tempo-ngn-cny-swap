@@ -1,79 +1,45 @@
-# Tempo NGN ⇄ CNY Cross-Border B2B Payment PoC
+# NGN-CNY Payment PoC
 
-Proof of concept experiment with Tempo blockchain for Nigeria ⇄ China B2B payments using NGN and CNY stablecoins. The goal is to validate whether Tempo can materially make NGN/CNY payments faster, cheaper, and more user-friendly than traditional payment rails (SWIFT, correspondent banking).
+We are experimenting with Tempo to see if it can materially improve the experience of NGN-CNY B2B payments. The goal is to test if Tempo's native stablecoin rails can offer a viable alternative to the high costs, delays, and friction of legacy SWIFT and traditional banking.
 
-## Why Nigeria ⇄ China?
+## Context
 
-**The Problem: The Failed Government Solution**
-Nigeria and China signed a $2.5 billion currency swap agreement to allow Nigerian businesses to pay Chinese suppliers in Naira. However, the result has been largely ineffective:
-- Covers only 12% of trade volume.
-- Persistent trade imbalance.
-- Severe Naira depreciation.
-- Bureaucratic hurdles (Form M, Tax clearance, etc.) causing 5-10 day delays.
+Trade between Nigeria and China exceeds $26B annually, but payments are still largely inefficient:
+- **Cost**: Double conversion (NGN → USD → CNY) and bank fees cost businesses 3-5%.
+- **Speed**: transfers typically take >= 1 day to settle.
+- **Friction**: Bureaucratic hurdles (Forms M, tax clearance) add significant operational drag.
 
-**The Real Pain for Businesses**
-A Nigerian retailer paying $50,000 to a Shenzhen manufacturer faces:
-- **Currency Conversion Hell**: NGN → USD → CNY (double conversion fees).
-- **High Costs**: 3-5% lost in conversion and bank fees ($1,750 - $2,500).
-- **Delays**: 3-7 days for SWIFT transfers to clear.
+## The Experiment
 
-## The Tempo Solution
+We built a client-side Proof of Concept (PoC) to test an alternative flow:
+1.  **Direct Swaps**: Using Tempo's native AMM to swap NGN stablecoins for CNY stablecoins.
+2.  **Client-Side Orchestration**: The application handles all on-chain setup (minting tokens, seeding liquidity, funding wallets) automatically upon connection, removing the need for backend infrastructure.
+3.  **Concept Tokens**: On the Tempo Moderato Testnet, we use NGN and CNY concept tokens (configured as USD-denominated to work with the current DEX constraints) to simulate the payment rails.
 
-Instead of broken government swaps or painful legacy rails, this PoC demonstrates:
-- **Instant NGN → CNY swaps** via Tempo's native stablecoin DEX (<1 minute).
-- **Direct Payments**: Receive `CNYT` tokens usable for payments.
-- **Cost Efficiency**: <0.5% total cost (vs 5.5% traditional).
-- **Gas in Stablecoins**: Pay fees in NGN, no native gas token required.
+## How to Run
 
-**Important testnet constraint:** Tempo's native stablecoin DEX and fee AMM currently accept **USD-denominated TIP-20 tokens only** so true NGN/CNY TIP-20s cannot be traded on the native DEX on testnet as of now.
+1.  **Install dependencies**:
+    ```bash
+    cd client
+    npm install
+    ```
 
-**PoC limitation:** For now only USD-denominated TIP-20 tokens can be swapped on the native DEX. Once the DEX supports non‑USD exchanges, we can create true NGN/CNY tokens and swap them directly.
+2.  **Run the application**:
+    ```bash
+    npm run dev
+    ```
 
-## Project Structure
+3.  **Connect Wallet**:
+    Open `http://localhost:3000` with a wallet configured for **Tempo Moderato Testnet** (Chain ID: 42431). The app will automatically fund your wallet and set up the environment.
 
-- `contracts/`: Terminal orchestration scripts for deploying tokens and seeding liquidity.
-- `client/`: Next.js application for the swap interface.
+## Findings
 
-## Quick Start
+**Validated**:
+- **Speed**: Settlement consistently occurs in under 60 seconds (vs. >= 1 day).
+- **Cost**: On-chain fees are negligible (<0.5%) compared to banking rails.
+- **UX**: Client-side automation proves that complex crypto operations can be abstracted away from the user.
 
-### 1. Installation
-
-```bash
-npm install
-```
-
-### 2. Environment Setup
-
-Copy the example environment files:
-
-```bash
-cp .env.example .env
-cp client/.env.example client/.env.local
-```
-
-**Root `.env` Configuration:**
-You need a Tempo private key for the orchestrator (admin):
-- `ORCHESTRATOR_PRIVATE_KEY`: Your wallet private key (must be funded with AlphaUSD/Testnet tokens). You can fund it with the Tempo [faucet](https://docs.tempo.xyz/quickstart/faucet?tab-1=fund-an-address)
-
-### 3. Orchestrator Setup (Run Once)
-
-Initialize the on-chain environment (create USD-denominated tokens, mint supply, seed liquidity):
-
-```bash
-npm run orchestrate
-```
-*This script will update `contracts/address.json` with the deployed token addresses.*
-
-
-### 4. Run the Client
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to view the swap interface.
-
-## Client Notes
-
-- **Auto-Faucet**: When a wallet connects, the client automatically triggers a server-side faucet to fund the user with `NGNT` and `CNYT`.
-- **Bidirectional Swaps**: NGN → CNY and CNY → NGN.
+**Constraints & Risks**:
+- **USD Restriction**: Tempo's native DEX currently enforces USD-only pairs. Mainnet must support non-USD pairs for this to work without an intermediate USD hop.
+- **Liquidity**: Market orders for NGN/CNY pairs will require deep liquidity to avoid slippage.
+- **Off-Ramps**: The solution is technically sound, but practically relies on the existence of reliable fiat on/off-ramps in both Nigeria and China.
